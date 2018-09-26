@@ -14,6 +14,7 @@ public class Mastermind {
 		String realNumber = String.format("%04d", randomNumber);
 		Scanner sc = new Scanner(System.in);
 		int[] arrayRandom = new int[4];
+		String[] arrayFinal = new String[4];
 		
 		for (int i=0; i<arrayRandom.length; i++)
 		{
@@ -28,7 +29,7 @@ public class Mastermind {
 			exactDigit = 0;
 			int[] arrayUser = new int[4];
 			
-			System.out.println("Essai " + compt + ": ");
+			System.out.println("\nEssai " + compt + ": ");
 			String str = sc.nextLine();
 			System.out.println("Vous avez saisi : " + str);
 			
@@ -45,15 +46,25 @@ public class Mastermind {
 				
 				for(int i = 0; i < 4; i++) {
 					for(int j = 0; j < 4; j++) {
-						if (i == j) {
-							if (arrayRandom[i] == arrayUser[j]) {
+						
+						if (arrayUser[i] == arrayRandom[j]) {
+							if (i == j) {
 								exactDigit++;
-								System.out.print(" + ");
+								arrayFinal[i] = " + ";
+								break;
 							}else {
-								System.out.print(" - ");
+								arrayFinal[i] = " 1 ";
+								break;
 							}
+						}else {
+							arrayFinal[i] = " - ";
 						}
+						
 					}
+				}
+				
+				for(int k = 0; k < 4; k++) {
+					System.out.print(arrayFinal[k]);
 				}
 				
 				if (exactDigit == 4) {
