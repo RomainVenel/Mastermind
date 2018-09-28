@@ -1,1 +1,3 @@
 # Mastermind
+
+Author Romain Venel
