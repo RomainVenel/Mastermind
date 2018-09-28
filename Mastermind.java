@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,8 +8,13 @@ public class Mastermind {
 		// TODO Auto-generated method stub
 		
 		boolean replay = true;
+		long secsEarly = 0;
+		long secsEnd = 0;
 		
 		do {
+			
+			// Timer au début du jeu
+			secsEarly = (new Date().getTime())/1000;
 			
 			// Compteur de coups
 			int compt = 1;
@@ -18,7 +24,7 @@ public class Mastermind {
 			
 			// Génère un nombre aléatoire entre 0000 et 9999
 			Random r = new Random();
-			int randomNumber = r.nextInt(9999);
+			int randomNumber = r.nextInt(10000);
 			String realNumber = String.format("%04d", randomNumber);
 			
 			// Récupère la saisie de l'utilisateur
@@ -94,6 +100,9 @@ public class Mastermind {
 					
 					if (exactDigit == 4) {
 						System.out.println("\nBravo ! Vous avez gagné en " + compt + " coups !");
+						// Timer à la fin du jeu
+						secsEnd = (new Date().getTime())/1000;
+						System.out.println("Vous avez mis " + (secsEnd - secsEarly) + " secondes !");
 						break;
 					}else {
 						// Réinitialisation du tableau final
@@ -107,6 +116,9 @@ public class Mastermind {
 		
 			if (compt >= 9 ) {
 				System.out.println("\nVous avez perdu !");
+				// Timer à la fin du jeu
+				secsEnd = (new Date().getTime())/1000;
+				System.out.println("\nVous avez mis " + (secsEnd - secsEarly) + " secondes !");
 			}
 			
 			System.out.println("Voulez-vous rejouer ? 1 pour oui, 2 pour non");
@@ -116,6 +128,7 @@ public class Mastermind {
 				replay = true;
 			}else {
 				replay = false;
+				System.out.println("Fin du jeu !");
 			}
 			
 		}while(replay == true);
