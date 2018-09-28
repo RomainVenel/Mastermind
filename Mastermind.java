@@ -1,16 +1,30 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Mastermind {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		
 		boolean replay = true;
 		long secsEarly = 0;
 		long secsEnd = 0;
-		
+		String savestr = "filename.txt"; 
+		File f = new File(savestr);
+
+		PrintWriter out = null;
+		if ( f.exists() && !f.isDirectory() ) {
+		    out = new PrintWriter(new FileOutputStream(new File(savestr), true));
+		}
+		else {
+		    out = new PrintWriter(savestr);
+		}
+			
 		do {
 			
 			// Timer au début du jeu
@@ -26,6 +40,10 @@ public class Mastermind {
 			Random r = new Random();
 			int randomNumber = r.nextInt(10000);
 			String realNumber = String.format("%04d", randomNumber);
+			
+			// append the sequence
+			out.println("----------------------------------------------------");
+		    out.println("Le nombre à trouver est: " + realNumber);
 			
 			// Récupère la saisie de l'utilisateur
 			Scanner sc = new Scanner(System.in);
@@ -56,6 +74,9 @@ public class Mastermind {
 				String str = sc.nextLine();
 				System.out.println("Vous avez saisi : " + str);
 				
+				// append the sequence
+			     out.println("Essai " + compt + ": " + str);
+
 				// Vérification si la saisie est un nombre de 4 caractères
 				if (str.matches("[a-zA-Z]+") || str.length() != 4) {
 					
@@ -103,6 +124,8 @@ public class Mastermind {
 						// Timer à la fin du jeu
 						secsEnd = (new Date().getTime())/1000;
 						System.out.println("Vous avez mis " + (secsEnd - secsEarly) + " secondes !");
+						out.println("Gagné en " + compt + " coups et " + (secsEnd - secsEarly) + " secondes");
+						out.close();
 						break;
 					}else {
 						// Réinitialisation du tableau final
@@ -112,6 +135,8 @@ public class Mastermind {
 				}
 				compt++;
 				
+				
+				
 			} while (compt < 9);
 		
 			if (compt >= 9 ) {
@@ -119,6 +144,8 @@ public class Mastermind {
 				// Timer à la fin du jeu
 				secsEnd = (new Date().getTime())/1000;
 				System.out.println("\nVous avez mis " + (secsEnd - secsEarly) + " secondes !");
+				out.println("Perdu !");
+				out.close();
 			}
 			
 			System.out.println("Voulez-vous rejouer ? 1 pour oui, 2 pour non");
