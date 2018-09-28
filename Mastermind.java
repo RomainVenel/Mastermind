@@ -93,9 +93,8 @@ public class Mastermind {
 		
 		System.out.println("Le nombre à trouver est " + realNumber);
 		
-		//
 		this.out.println("----------------------------------------------------");
-	    this.out.println("Le nombre à trouver est: " + realNumber);
+		this.out.println("Le nombre à trouver est: " + realNumber);
 		
 		// Remplissage du tableauRandom avec le nombre random
 		for (int i=0; i < arrayRandom.length; i++)
