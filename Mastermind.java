@@ -6,12 +6,12 @@ public class Mastermind {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		// Compteur de coups
-		int compt = 1;
-		
 		boolean replay = true;
 		
 		do {
+			
+			// Compteur de coups
+			int compt = 1;
 		
 			// Le jeu s'arrête si la variable vaut 4
 			int exactDigit = 0;
